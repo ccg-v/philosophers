@@ -6,11 +6,11 @@
 /*   By: ccarrace <ccarrace@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 11:10:29 by ccarrace          #+#    #+#             */
-/*   Updated: 2023/08/08 11:12:11 by ccarrace         ###   ########.fr       */
+/*   Updated: 2023/08/09 11:25:14 by ccarrace         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "philo.h"
 
 int	ft_isdigit(int c)
 {

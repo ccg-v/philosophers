@@ -6,32 +6,33 @@
 #    By: ccarrace <ccarrace@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/08 13:22:20 by ccarrace          #+#    #+#              #
-#    Updated: 2023/08/08 14:21:28 by ccarrace         ###   ########.fr        #
+#    Updated: 2023/08/11 14:15:27 by ccarrace         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # gcc -Wall -Wextra -Werror -g -fsanitize=address -I inc/ main.c ft_utils.c -o philo
 
 # --- Variables ----------------------------------------------------------------
-CC				=		gcc
-NAME			=		philo
+CC			=		gcc
+NAME		=		philo
 
 # --- Compiler flags -----------------------------------------------------------
 
-FLAGS			=		-Wall -Wextra -Werror -g -fsanitize=address
+FLAGS		=		-MMD -Wall -Wextra -Werror -g
 
 # --- Directories --------------------------------------------------------------
 
-HEADER_DIR		=		inc/
+HEADER_DIR	=		inc/
 
 # --- Includes -----------------------------------------------------------------
 
-INCLUDES		=		-I $(HEADER_DIR)
+INCLUDES	=		-I $(HEADER_DIR)
 
 # --- Files --------------------------------------------------------------------
 
-SRC_FILES		=		main.c \
-						ft_utils.c
+SRC_FILES	=		main.c \
+					initializing.c \
+					ft_utils.c
 
 # --- Macros -------------------------------------------------------------------
 
@@ -58,7 +59,6 @@ clean:
 fclean: 	clean
 			rm -f $(NAME)
 
-re:			fclean
-			all
+re:			fclean all
 
 .PHONY:		all clean fclean re
