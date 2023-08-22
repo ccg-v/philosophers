@@ -6,7 +6,7 @@
 /*   By: ccarrace <ccarrace@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 11:10:29 by ccarrace          #+#    #+#             */
-/*   Updated: 2023/08/21 00:10:59 by ccarrace         ###   ########.fr       */
+/*   Updated: 2023/08/21 14:28:03 by ccarrace         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,15 @@
 	to deal such extremely long intervals, returning'long int' or 'unsigned long' 
 	will be enough.
 
-	An 'unsigned long' is not returned to avoid negative values from 
-	'gettimeofday()' -which is never going to happen-, but to a enhance semantic 
-	clarity and consistency with good coding practices. using an unsigned type 
-	helps convey your intentions more clearly and prevents issues related to 
+	Returning 'unsigned long' type, rather than pretending to avoid negative values
+	from 'gettimeofday()' -which is never going to happen-, is a choice to enhance 
+	semantic clarity and consistency with good coding practices. Using an unsigned
+	type helps convey your intentions more clearly and prevents issues related to 
 	negative values.
+
+	A 'size_t' type also works fine but since its usually meant for sizes and counts
+	it might be slightly misleading. The size of 'size_t' can vary depending on the
+	system architecture, and it might no be sufficient to represent large intervals. 
 */
 unsigned long	ft_current_time(void)
 {
@@ -40,11 +44,17 @@ unsigned long	ft_current_time(void)
 	unsigned long	current_seconds;
 	unsigned long	current_microseconds;
 	
-	gettimeofday(&time, NULL);
+	if (gettimeofday(&time, NULL) == -1)
+		write(2, "gettimeofday() error\n", 22);
 	current_seconds = time.tv_sec;
 	current_microseconds = time.tv_usec;
 	current_time = (current_seconds * 1000) + (current_microseconds / 1000);
 	return (current_time);
+}
+
+unsigned long	elapsed_time(t_data *data)
+{
+	return(ft_current_time() - data->start_time);	
 }
 
 int	ft_isdigit(int c)

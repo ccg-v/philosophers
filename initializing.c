@@ -6,7 +6,7 @@
 /*   By: ccarrace <ccarrace@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 10:55:06 by ccarrace          #+#    #+#             */
-/*   Updated: 2023/08/21 00:24:36 by ccarrace         ###   ########.fr       */
+/*   Updated: 2023/08/22 19:39:36 by ccarrace         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ bool	philos_initialized(t_data *data)
 	{
 		data->philos_arr[i].data = data;
 		data->philos_arr[i].name = i + 1;
+		data->philos_arr[i].meals_completed = 0;
 // printf("\nphilo[%d] name is %d\n", i, data->philos_arr[i].name);
 // 		if (i == 0)
 // 			data->philos_arr[i].right_fork = args->no_of_philos;
@@ -67,8 +68,8 @@ bool	philos_initialized(t_data *data)
 // printf("philo[%d] left fork is %d\n", i, data->philos_arr[i].left_fork);
 		data->philos_arr[i].right_fork = i;
 		data->philos_arr[i].left_fork = (i + 1) % data->no_of_philos;
-printf("philo[%d] right fork is %d\n", i, data->philos_arr[i].right_fork);
-printf("philo[%d] left fork is %d\n", i, data->philos_arr[i].left_fork);
+// printf("philo[%d] right fork is %d\n", i, data->philos_arr[i].right_fork);
+// printf("philo[%d] left fork is %d\n", i, data->philos_arr[i].left_fork);
 		i++;
 	}
 	return (true);
@@ -86,9 +87,9 @@ bool	mutexes_initialized(t_data *data)
 	while (i < data->no_of_philos)
 	{
 		pthread_mutex_init(&data->mutex_arr[i], NULL);
-printf("mutex %d created\n", i);
 		i++;
 	}
 	pthread_mutex_init(&data->printing_mutex, NULL);
+	pthread_mutex_init(&data->i_mutex, NULL);	
 	return (true);
 }

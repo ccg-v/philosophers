@@ -6,7 +6,7 @@
 /*   By: ccarrace <ccarrace@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 11:06:51 by ccarrace          #+#    #+#             */
-/*   Updated: 2023/08/21 00:29:50 by ccarrace         ###   ########.fr       */
+/*   Updated: 2023/08/22 19:39:02 by ccarrace         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <stdbool.h>
 # include <stdio.h>
+# include <unistd.h>	//	write
 # include <stdlib.h>
 # include <pthread.h>
 # include <sys/time.h>
@@ -31,6 +32,7 @@ typedef struct s_philo
 {
 	t_data				*data;
 	int					name;
+	int					meals_completed;
 	int					left_fork;
 	int					right_fork;	
 }	t_philo;
@@ -43,10 +45,11 @@ typedef struct s_data
 	long int			time_to_sleep;
 	int					meals_needed;
 	bool				no_deaths;
-	long int			start_time;
+	unsigned long		start_time;
 	t_philo				*philos_arr;
 	pthread_mutex_t		*mutex_arr;
 	pthread_mutex_t		printing_mutex;
+	pthread_mutex_t		i_mutex;
 }	t_data;
 
 // initializing

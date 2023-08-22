@@ -6,7 +6,7 @@
 /*   By: ccarrace <ccarrace@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 10:13:30 by ccarrace          #+#    #+#             */
-/*   Updated: 2023/08/21 00:29:57 by ccarrace         ###   ########.fr       */
+/*   Updated: 2023/08/21 21:46:28 by ccarrace         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,26 +46,23 @@ int	main(int argc, char **argv)
 	{
 		if (data_initialized(&data, argv) == false)
 			return (0);
-		// if (data_initialized(&adata, &data, &philo) == false)
-		// 	return (0);
 		if (philos_initialized(&data) == false)
 			return (0);
 		if (mutexes_initialized(&data) == false)
 			return (0);
 	}
 	data.start_time = ft_current_time();
-printf("start_time : %ld\n", data.start_time);
-	int i = 0;
-	while (i < data.no_of_philos)
-	{
-		printf("\nPhilosopher %d right fork is %d\n", data.philos_arr[i].name, data.philos_arr[i].right_fork);
-		printf("Philosopher %d left fork is %d\n", data.philos_arr[i].name, data.philos_arr[i].left_fork);
-		printf("\nPhilosopher %d right fork is %p\n", data.philos_arr[i].name, (void *)&data.mutex_arr[data.philos_arr[i].right_fork]);
-		printf("Philosopher %d leftt fork is %p\n", data.philos_arr[i].name, (void *)&data.mutex_arr[data.philos_arr[i].left_fork]);	
-		i++;
-	}
+// printf("start_time : %ld\n", data.start_time);
+	// int i = 0;
+	// while (i < data.no_of_philos)
+	// {
+	// 	printf("\nPhilosopher %d right fork is %d\n", data.philos_arr[i].name, data.philos_arr[i].right_fork);
+	// 	printf("Philosopher %d left fork is %d\n", data.philos_arr[i].name, data.philos_arr[i].left_fork);
+	// 	printf("\nPhilosopher %d right fork is %p\n", data.philos_arr[i].name, (void *)&data.mutex_arr[data.philos_arr[i].right_fork]);
+	// 	printf("Philosopher %d leftt fork is %p\n", data.philos_arr[i].name, (void *)&data.mutex_arr[data.philos_arr[i].left_fork]);	
+	// 	i++;
+	// }
 	create_threads(&philo, &data);
 	free(data.philos_arr);
-	// free(data.forks_arr);
 	return (0);
 }
