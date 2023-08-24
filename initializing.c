@@ -6,7 +6,7 @@
 /*   By: ccarrace <ccarrace@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 10:55:06 by ccarrace          #+#    #+#             */
-/*   Updated: 2023/08/22 19:39:36 by ccarrace         ###   ########.fr       */
+/*   Updated: 2023/08/23 11:37:35 by ccarrace         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ bool	data_initialized(t_data *data, char **argv)
 	data->time_to_die = ft_atoi(argv[2]);
 	data->time_to_eat = ft_atoi(argv[3]);
 	data->time_to_sleep = ft_atoi(argv[4]);
-	data->no_deaths = true;
+	data->someone_died = false;
 	if (data->no_of_philos <= 0 || data->time_to_die <= 0 || data->time_to_eat <= 0\
 		|| data->time_to_sleep <= 0)
 		return (false);
@@ -90,6 +90,5 @@ bool	mutexes_initialized(t_data *data)
 		i++;
 	}
 	pthread_mutex_init(&data->printing_mutex, NULL);
-	pthread_mutex_init(&data->i_mutex, NULL);	
 	return (true);
 }

@@ -6,7 +6,7 @@
 /*   By: ccarrace <ccarrace@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 22:50:18 by ccarrace          #+#    #+#             */
-/*   Updated: 2023/08/22 20:13:53 by ccarrace         ###   ########.fr       */
+/*   Updated: 2023/08/24 00:07:08 by ccarrace         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,30 +18,80 @@
 // 	return (0);
 // }
 
-void	*thread_routine(void *arg)
+void *thread_routine(void *arg)
 {
-	t_philo	*philo;
-	int		i;
+    t_philo *philo;
+    int i;
 
-	philo = (t_philo *)arg;
-	i = 0;
-	// while(philo->data->no_deaths == true)
-	while (i < 10)
-	{
-		pthread_mutex_lock(&philo->data->printing_mutex);
-		if (philo->data->no_of_philos == 1)
-			printf("philo %d sat alone and 'i' is %d\n", philo->name, i);
-		else
-			printf("philo %d sat at the table and 'i' is %d\n", philo->name, i);
-		pthread_mutex_unlock(&philo->data->printing_mutex);
-		usleep(15);
-		// pthread_mutex_lock(&philo->data->i_mutex);
-		i++;
-		// pthread_mutex_unlock(&philo->data->i_mutex);
-	}
-	// pthread_mutex_destroy(&philo->data->printing_mutex);
-	return (0);
+    philo = (t_philo *)arg;
+    i = 0;
+
+printf("start_time   = %lu\n", philo->data->start_time);
+printf("current_time = %lu\n", ft_current_time());
+
+    while (philo->data->someone_died == false)
+    {
+        if (philo->data->no_of_philos == 1)
+        {
+            pthread_mutex_lock(&philo->data->mutex_arr[philo->left_fork]);
+            pthread_mutex_lock(&philo->data->printing_mutex);
+            printf("[%lu ms]: philo %d has taken a fork\n", elapsed_time(philo->data), philo->name);
+            pthread_mutex_unlock(&philo->data->printing_mutex);
+            pthread_mutex_unlock(&philo->data->mutex_arr[philo->left_fork]);
+			usleep(philo->data->time_to_die);
+			pthread_mutex_lock(&philo->data->printing_mutex);
+			printf("[%lu ms]: philo %d has died\n", elapsed_time(philo->data), philo->name);
+			pthread_mutex_unlock(&philo->data->printing_mutex);
+        }
+        else
+        {
+            pthread_mutex_lock(&philo->data->printing_mutex);
+            printf("[%lu ms]: philo %d sat at the table\n", elapsed_time(philo->data), philo->name);
+            pthread_mutex_unlock(&philo->data->printing_mutex);
+        }
+
+        usleep(2000);
+        i++;
+        if (i == philo->data->no_of_philos)
+            philo->data->someone_died = true;
+    }
+    return (0);
 }
+
+
+// void	*thread_routine(void *arg)
+// {
+// 	t_philo	*philo;
+// 	int		i;
+
+// 	philo = (t_philo *)arg;
+// 	i = 0;
+// 	// while (i < philo->data->no_of_philos)
+// 	while(philo->data->someone_died == false)
+// 	{
+		
+// 		if (philo->data->no_of_philos == 1)
+// 		{
+// 			pthread_mutex_lock(&philo->data->mutex_arr[philo->left_fork]);
+// 			pthread_mutex_lock(&philo->data->printing_mutex);
+// 			usleep (2000);
+// 			printf("[%lu ms]: philo %d has taken a fork\n", elapsed_time(philo->data), philo->name);
+// 			pthread_mutex_unlock(&philo->data->printing_mutex);
+// 			pthread_mutex_unlock(&philo->data->mutex_arr[philo->left_fork]);
+// 		}
+// 		else
+// 		{
+// 			pthread_mutex_lock(&philo->data->printing_mutex);
+// 			printf("philo %d sat at the table\n", philo->name);
+// 			pthread_mutex_unlock(&philo->data->printing_mutex);
+// 		}
+// 		usleep(15);
+// 		i++;
+// 		if (i == philo->data->no_of_philos)
+// 			philo->data->someone_died = true;
+// 	}
+// 	return (0);
+// }
 
 int	create_threads(t_philo *philo, t_data *data)
 {

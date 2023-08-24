@@ -6,7 +6,7 @@
 /*   By: ccarrace <ccarrace@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 11:10:29 by ccarrace          #+#    #+#             */
-/*   Updated: 2023/08/21 14:28:03 by ccarrace         ###   ########.fr       */
+/*   Updated: 2023/08/24 00:05:33 by ccarrace         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,18 @@ unsigned long	ft_current_time(void)
 
 unsigned long	elapsed_time(t_data *data)
 {
-	return(ft_current_time() - data->start_time);	
+	return(ft_current_time() - data->start_time);
 }
+
+// unsigned long	elapsed_time(t_data *data)
+// {
+// 	unsigned long	current_time;
+// 	unsigned long	elapsed_time;
+
+// 	current_time = ft_current_time();
+// 	elapsed_time = current_time - data->start_time;
+// 	return(elapsed_time);	
+// }
 
 int	ft_isdigit(int c)
 {

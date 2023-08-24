@@ -6,7 +6,7 @@
 /*   By: ccarrace <ccarrace@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 10:13:30 by ccarrace          #+#    #+#             */
-/*   Updated: 2023/08/21 21:46:28 by ccarrace         ###   ########.fr       */
+/*   Updated: 2023/08/23 19:34:39 by ccarrace         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	main(int argc, char **argv)
 			return (0);
 	}
 	data.start_time = ft_current_time();
-// printf("start_time : %ld\n", data.start_time);
+printf("start_time : %ld\n", data.start_time);
 	// int i = 0;
 	// while (i < data.no_of_philos)
 	// {
@@ -64,5 +64,7 @@ int	main(int argc, char **argv)
 	// }
 	create_threads(&philo, &data);
 	free(data.philos_arr);
+	free(data.mutex_arr);
+	pthread_mutex_destroy(&data.printing_mutex);
 	return (0);
 }

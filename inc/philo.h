@@ -6,7 +6,7 @@
 /*   By: ccarrace <ccarrace@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 11:06:51 by ccarrace          #+#    #+#             */
-/*   Updated: 2023/08/22 19:39:02 by ccarrace         ###   ########.fr       */
+/*   Updated: 2023/08/23 19:32:39 by ccarrace         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,11 @@ typedef struct s_data
 	long int			time_to_eat;
 	long int			time_to_sleep;
 	int					meals_needed;
-	bool				no_deaths;
+	bool				someone_died;
 	unsigned long		start_time;
 	t_philo				*philos_arr;
 	pthread_mutex_t		*mutex_arr;
 	pthread_mutex_t		printing_mutex;
-	pthread_mutex_t		i_mutex;
 }	t_data;
 
 // initializing
@@ -62,6 +61,7 @@ int				create_threads(t_philo *philo, t_data *data);
 
 // ft_utils
 unsigned long	ft_current_time(void);
+unsigned long	elapsed_time(t_data *data);
 int				ft_isdigit(int c);
 int				ft_atoi(const char *str);
 
