@@ -6,7 +6,7 @@
 /*   By: ccarrace <ccarrace@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 10:13:30 by ccarrace          #+#    #+#             */
-/*   Updated: 2023/08/23 19:34:39 by ccarrace         ###   ########.fr       */
+/*   Updated: 2023/09/03 11:52:55 by ccarrace         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	main(int argc, char **argv)
 {	
 	t_data	data;
 	t_philo	philo;
+	int		i;
 
 	if (argc < 5 || argc > 6)
 		printf("Wrong number of args\n");
@@ -51,20 +52,16 @@ int	main(int argc, char **argv)
 		if (mutexes_initialized(&data) == false)
 			return (0);
 	}
-	data.start_time = ft_current_time();
-printf("start_time : %ld\n", data.start_time);
-	// int i = 0;
-	// while (i < data.no_of_philos)
-	// {
-	// 	printf("\nPhilosopher %d right fork is %d\n", data.philos_arr[i].name, data.philos_arr[i].right_fork);
-	// 	printf("Philosopher %d left fork is %d\n", data.philos_arr[i].name, data.philos_arr[i].left_fork);
-	// 	printf("\nPhilosopher %d right fork is %p\n", data.philos_arr[i].name, (void *)&data.mutex_arr[data.philos_arr[i].right_fork]);
-	// 	printf("Philosopher %d leftt fork is %p\n", data.philos_arr[i].name, (void *)&data.mutex_arr[data.philos_arr[i].left_fork]);	
-	// 	i++;
-	// }
-	create_threads(&philo, &data);
+	create_philos(&philo, &data);
 	free(data.philos_arr);
 	free(data.mutex_arr);
 	pthread_mutex_destroy(&data.printing_mutex);
+	pthread_mutex_destroy(&data.meal_counter_mutex);
+	i = 0;
+	while (i < data.no_of_philos)
+	{
+		pthread_mutex_destroy(&data.mutex_arr[i]);
+		i++;
+	}
 	return (0);
 }

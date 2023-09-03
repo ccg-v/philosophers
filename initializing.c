@@ -6,7 +6,7 @@
 /*   By: ccarrace <ccarrace@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 10:55:06 by ccarrace          #+#    #+#             */
-/*   Updated: 2023/08/23 11:37:35 by ccarrace         ###   ########.fr       */
+/*   Updated: 2023/09/03 12:30:21 by ccarrace         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ bool	data_initialized(t_data *data, char **argv)
 	data->time_to_die = ft_atoi(argv[2]);
 	data->time_to_eat = ft_atoi(argv[3]);
 	data->time_to_sleep = ft_atoi(argv[4]);
-	data->someone_died = false;
 	if (data->no_of_philos <= 0 || data->time_to_die <= 0 || data->time_to_eat <= 0\
 		|| data->time_to_sleep <= 0)
 		return (false);
@@ -28,6 +27,11 @@ bool	data_initialized(t_data *data, char **argv)
 		if (data->meals_needed <= 0)
 			return (false);
 	}
+	else
+		data->meals_needed = -1;
+	data->someone_died = false;
+	data->everyone_finished = false;
+	data->start_time = ft_current_time();
 	return (true);
 }
 
@@ -58,18 +62,15 @@ bool	philos_initialized(t_data *data)
 		data->philos_arr[i].data = data;
 		data->philos_arr[i].name = i + 1;
 		data->philos_arr[i].meals_completed = 0;
-// printf("\nphilo[%d] name is %d\n", i, data->philos_arr[i].name);
+		data->philos_arr[i].finished_all_meals = false;
+		data->philos_arr[i].time_last_meal = ft_current_time();
 // 		if (i == 0)
 // 			data->philos_arr[i].right_fork = args->no_of_philos;
 // 		else
 // 			data->philos_arr[i].right_fork = i;
-// printf("philo[%d] right fork is %d\n", i, data->philos_arr[i].right_fork);
 // 		data->philos_arr[i].left_fork = i + 1;
-// printf("philo[%d] left fork is %d\n", i, data->philos_arr[i].left_fork);
 		data->philos_arr[i].right_fork = i;
 		data->philos_arr[i].left_fork = (i + 1) % data->no_of_philos;
-// printf("philo[%d] right fork is %d\n", i, data->philos_arr[i].right_fork);
-// printf("philo[%d] left fork is %d\n", i, data->philos_arr[i].left_fork);
 		i++;
 	}
 	return (true);
