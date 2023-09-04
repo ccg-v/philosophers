@@ -1,3 +1,9 @@
+/*
+	This function loops endlessly, but the i increases from '0' to
+	'limit'. When 'i' is equal to 'limit' it is reset to '0' again
+	so that its value will never be greater than 'limit'.
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 

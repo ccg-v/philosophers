@@ -6,7 +6,7 @@
 #    By: ccarrace <ccarrace@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/08 13:22:20 by ccarrace          #+#    #+#              #
-#    Updated: 2023/09/01 20:06:44 by ccarrace         ###   ########.fr        #
+#    Updated: 2023/09/03 21:09:49 by ccarrace         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,9 @@ INCLUDES	=		-I $(HEADER_DIR)
 SRC_FILES	=		main.c \
 					initializing.c \
 					starting.c \
+					philo_routine.c \
+					health_checkup.c \
+					printing.c \
 					ft_utils.c
 
 # --- Macros -------------------------------------------------------------------

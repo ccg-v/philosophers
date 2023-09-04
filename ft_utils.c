@@ -6,7 +6,7 @@
 /*   By: ccarrace <ccarrace@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 11:10:29 by ccarrace          #+#    #+#             */
-/*   Updated: 2023/09/01 19:25:24 by ccarrace         ###   ########.fr       */
+/*   Updated: 2023/09/04 19:46:13 by ccarrace         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,15 +57,23 @@ unsigned long	elapsed_time(t_data *data)
 	return(ft_current_time() - data->start_time);
 }
 
-int	ft_usleep(size_t milliseconds)
+void	ft_usleep(unsigned long lapse)
 {
-	size_t	start;
-
-	start = ft_current_time();
-	while ((ft_current_time() - start) < milliseconds)
-		usleep(500);
-	return (0);
+	unsigned long	target;
+	target = ft_current_time() + lapse;
+	while (ft_current_time() <= target)
+		usleep(200);
 }
+
+// int	ft_usleep(size_t milliseconds)
+// {
+// 	size_t	start;
+
+// 	start = ft_current_time();
+// 	while ((ft_current_time() - start) < milliseconds)
+// 		usleep(10);
+// 	return (0);
+// }
 
 int	ft_isdigit(int c)
 {

@@ -6,7 +6,7 @@
 /*   By: ccarrace <ccarrace@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 10:13:30 by ccarrace          #+#    #+#             */
-/*   Updated: 2023/09/03 11:52:55 by ccarrace         ###   ########.fr       */
+/*   Updated: 2023/09/04 23:19:05 by ccarrace         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	main(int argc, char **argv)
 	free(data.philos_arr);
 	free(data.mutex_arr);
 	pthread_mutex_destroy(&data.printing_mutex);
-	pthread_mutex_destroy(&data.meal_counter_mutex);
+	pthread_mutex_destroy(&data.shared_mutex);
 	i = 0;
 	while (i < data.no_of_philos)
 	{
