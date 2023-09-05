@@ -6,7 +6,7 @@
 /*   By: ccarrace <ccarrace@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 20:56:04 by ccarrace          #+#    #+#             */
-/*   Updated: 2023/09/05 00:42:23 by ccarrace         ###   ########.fr       */
+/*   Updated: 2023/09/05 17:42:38 by ccarrace         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ void *philo_routine(void *arg)
 
     philo = (t_philo *)arg;
     i = 0;
-
+	if ((philo->name % 2) == 0)
+		usleep(philo->data->time_to_eat * 1000);
     while (1)
     {
         if (philo->data->someone_died || philo->data->everyone_finished)
