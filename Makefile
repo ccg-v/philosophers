@@ -6,7 +6,7 @@
 #    By: ccarrace <ccarrace@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/08 13:22:20 by ccarrace          #+#    #+#              #
-#    Updated: 2023/09/03 21:09:49 by ccarrace         ###   ########.fr        #
+#    Updated: 2023/09/05 20:48:34 by ccarrace         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ NAME		=		philo
 
 # --- Compiler flags -----------------------------------------------------------
 
-FLAGS		=		-MMD -Wall -Wextra -Werror -g -fsanitize=thread
+FLAGS		=		-MMD -Wall -Wextra -Werror -fsanitize=thread -g
 
 # --- Directories --------------------------------------------------------------
 

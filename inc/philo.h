@@ -6,7 +6,7 @@
 /*   By: ccarrace <ccarrace@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 11:06:51 by ccarrace          #+#    #+#             */
-/*   Updated: 2023/09/04 23:17:56 by ccarrace         ###   ########.fr       */
+/*   Updated: 2023/09/05 19:55:18 by ccarrace         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,6 @@ unsigned long	ft_current_time(void);
 unsigned long	elapsed_time(t_data *data);
 int				ft_isdigit(int c);
 int				ft_atoi(const char *str);
-void			ft_usleep(unsigned long time);
+void			ft_usleep(unsigned long lapse);
 
 #endif

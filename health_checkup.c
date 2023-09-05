@@ -6,7 +6,7 @@
 /*   By: ccarrace <ccarrace@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 21:03:46 by ccarrace          #+#    #+#             */
-/*   Updated: 2023/09/04 23:31:06 by ccarrace         ###   ########.fr       */
+/*   Updated: 2023/09/05 22:11:40 by ccarrace         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ void	*health_checkup(void *arg)
 	data = (t_data *)arg;
 	while (1)
 	{
-		if (somebody_died(data) == true)
+		if (data->meals_needed != -1 && everybody_finished(data) == true)
 			break;
-		else if (data->meals_needed != -1 && everybody_finished(data) == true)
+		else if (somebody_died(data) == true)
 			break;
-		usleep(1000);
-		// ft_usleep(1000);
+		// usleep(1000);
+		ft_usleep(10);
 	}
 	return (NULL);
 }
@@ -74,7 +74,8 @@ static bool	everybody_finished(t_data *data)
 	}
 	if (philos_full == data->no_of_philos)
 	{
-		usleep(data->time_to_die * 1000);
+		// usleep(data->time_to_die * 1000);
+		ft_usleep(data->time_to_die);
 		pthread_mutex_lock(&data->printing_mutex);
 		printf("%lu \tAll philosophers completed %d meals. End of simulation.\n", elapsed_time(data), data->meals_needed);
 		pthread_mutex_unlock(&data->printing_mutex);
