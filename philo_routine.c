@@ -6,7 +6,7 @@
 /*   By: ccarrace <ccarrace@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 20:56:04 by ccarrace          #+#    #+#             */
-/*   Updated: 2023/09/06 01:09:53 by ccarrace         ###   ########.fr       */
+/*   Updated: 2023/09/06 21:52:08 by ccarrace         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ static void	*just_one_philo(t_philo *philo)
     pthread_mutex_unlock(&philo->data->mutex_arr[philo->left_fork]);
 	// usleep(philo->data->time_to_die * 1000);
 	ft_usleep(philo->data->time_to_die);
-	safe_print(philo, "died");
+	safe_print(philo, "died. End of simulation.");
 	return (NULL);
 }
 
@@ -132,11 +132,18 @@ static void	take_forks(t_philo *philo)
 	// 	safe_print(philo, "has taken his LEFT fork");
 	// }
 
-	if (philo->data->someone_died == false)
-	{
+	// if (philo->data->someone_died == false)
+	// {
+		if (philo->data->someone_died == true)
+			return;
 		if (philo->name == philo->data->no_of_philos)
 		{
 			pthread_mutex_lock(&philo->data->mutex_arr[philo->left_fork]);
+			if (philo->data->someone_died == true)
+			{
+				pthread_mutex_unlock(&philo->data->mutex_arr[philo->left_fork]);
+				return;
+			}			
 			if (pthread_mutex_lock(&philo->data->mutex_arr[philo->right_fork]) == 0)
 			{	safe_print(philo, "has taken his LEFT fork");
 				safe_print(philo, "has taken his RIGHT fork");
@@ -147,6 +154,11 @@ static void	take_forks(t_philo *philo)
 		else
 		{
 			pthread_mutex_lock(&philo->data->mutex_arr[philo->right_fork]);			
+			if (philo->data->someone_died == true)
+			{
+				pthread_mutex_unlock(&philo->data->mutex_arr[philo->right_fork]);
+				return;
+			}	
 			if (pthread_mutex_lock(&philo->data->mutex_arr[philo->left_fork]) == 0)
 			{
 				safe_print(philo, "has taken his RIGHT fork");
@@ -155,7 +167,7 @@ static void	take_forks(t_philo *philo)
 			else
 				pthread_mutex_unlock(&philo->data->mutex_arr[philo->right_fork]);
 		}
-	}
+	// }
 }
 
 static void	ft_eat(t_philo *philo)

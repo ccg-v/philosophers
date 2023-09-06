@@ -6,7 +6,7 @@
 /*   By: ccarrace <ccarrace@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 21:03:46 by ccarrace          #+#    #+#             */
-/*   Updated: 2023/09/05 22:11:40 by ccarrace         ###   ########.fr       */
+/*   Updated: 2023/09/06 19:58:43 by ccarrace         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	*health_checkup(void *arg)
 	t_data	*data;
 
 	data = (t_data *)arg;
+	ft_usleep(100);
 	while (1)
 	{
 		if (data->meals_needed != -1 && everybody_finished(data) == true)

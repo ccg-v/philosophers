@@ -6,7 +6,7 @@
 /*   By: ccarrace <ccarrace@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 21:03:46 by ccarrace          #+#    #+#             */
-/*   Updated: 2023/09/05 22:11:40 by ccarrace         ###   ########.fr       */
+/*   Updated: 2023/09/06 21:57:17 by ccarrace         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static bool	somebody_died(t_data *data)
 		if (data->philos_arr[i].is_busy_eating == false && (ft_current_time() - data->philos_arr[i].time_last_meal) > data->time_to_die)
 		{
 			data->someone_died = true;
-			safe_death_print(data, "died. End of simulation.\n", i);
+			safe_death_print(data, "died. End of simulation.", i);
 			return (true);
 		}
 		i = (i + 1) % (data->no_of_philos + 1);
@@ -77,7 +77,8 @@ static bool	everybody_finished(t_data *data)
 		// usleep(data->time_to_die * 1000);
 		ft_usleep(data->time_to_die);
 		pthread_mutex_lock(&data->printing_mutex);
-		printf("%lu \tAll philosophers completed %d meals. End of simulation.\n", elapsed_time(data), data->meals_needed);
+		// printf("%lu \tAll philosophers completed %d meals. End of simulation.\n", elapsed_time(data), data->meals_needed);
+		printf("\tAll philosophers completed %d meals. End of simulation.\n", data->meals_needed);
 		pthread_mutex_unlock(&data->printing_mutex);
 		data->everyone_finished = true;
 		return (true);

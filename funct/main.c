@@ -6,7 +6,7 @@
 /*   By: ccarrace <ccarrace@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 10:13:30 by ccarrace          #+#    #+#             */
-/*   Updated: 2023/09/06 13:58:37 by ccarrace         ###   ########.fr       */
+/*   Updated: 2023/09/06 19:59:14 by ccarrace         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	main(int argc, char **argv)
 	if (argc < 5 || argc > 6)
 		printf("Wrong number of args\n");
 	else if (args_are_valid(argv) == false)
-		printf("Args not valid (not number or negative)\n");
+		printf("Invalid arguments (not numbers or negative)\n");
 	else
 	{
 		if (data_initialized(&data, argv) == false)
@@ -52,8 +52,10 @@ int	main(int argc, char **argv)
 		if (mutexes_initialized(&data) == false)
 			return (0);
 	}
-	create_philos(&philo, &data);
 	health_checkup(&data);
+printf("::::::::::::::::::::\n");
+	create_philos(&philo, &data);
+
 	free(data.philos_arr);
 	free(data.mutex_arr);
 	pthread_mutex_destroy(&data.printing_mutex);

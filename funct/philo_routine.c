@@ -6,7 +6,7 @@
 /*   By: ccarrace <ccarrace@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 20:56:04 by ccarrace          #+#    #+#             */
-/*   Updated: 2023/09/06 01:09:53 by ccarrace         ###   ########.fr       */
+/*   Updated: 2023/09/06 19:15:00 by ccarrace         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,8 @@ static void	*just_one_philo(t_philo *philo)
 	safe_print(philo, "has taken a fork");
     pthread_mutex_unlock(&philo->data->mutex_arr[philo->left_fork]);
 	// usleep(philo->data->time_to_die * 1000);
-	ft_usleep(philo->data->time_to_die);
-	safe_print(philo, "died");
+	// ft_usleep(philo->data->time_to_die);
+	// safe_print(philo, "died");
 	return (NULL);
 }
 
