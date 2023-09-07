@@ -6,7 +6,7 @@
 /*   By: ccarrace <ccarrace@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 20:56:04 by ccarrace          #+#    #+#             */
-/*   Updated: 2023/09/06 21:52:08 by ccarrace         ###   ########.fr       */
+/*   Updated: 2023/09/07 23:21:57 by ccarrace         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void *philo_routine(void *arg)
     philo = (t_philo *)arg;
     i = 0;
 	// if ((philo->name % 2) == 0)
-	// 	ft_usleep(philo->data->time_to_eat);
+	// 	ft_usleep(philo->data->time_to_eat / 10);
 		// usleep(philo->data->time_to_eat * 1000);
     while (1)
     {
@@ -132,41 +132,78 @@ static void	take_forks(t_philo *philo)
 	// 	safe_print(philo, "has taken his LEFT fork");
 	// }
 
-	// if (philo->data->someone_died == false)
-	// {
+// /* ONE LEFT-HANDED SOLUTION */
+	if (philo->data->someone_died == true)
+		return ;
+	else if (philo->name == philo->data->no_of_philos)
+	{
+		pthread_mutex_lock(&philo->data->mutex_arr[philo->left_fork]);
 		if (philo->data->someone_died == true)
-			return;
-		if (philo->name == philo->data->no_of_philos)
 		{
-			pthread_mutex_lock(&philo->data->mutex_arr[philo->left_fork]);
-			if (philo->data->someone_died == true)
-			{
-				pthread_mutex_unlock(&philo->data->mutex_arr[philo->left_fork]);
-				return;
-			}			
-			if (pthread_mutex_lock(&philo->data->mutex_arr[philo->right_fork]) == 0)
-			{	safe_print(philo, "has taken his LEFT fork");
-				safe_print(philo, "has taken his RIGHT fork");
-			}
-			else
-				pthread_mutex_unlock(&philo->data->mutex_arr[philo->left_fork]);
+			pthread_mutex_unlock(&philo->data->mutex_arr[philo->left_fork]);
+			return ;
+		}			
+		if (pthread_mutex_lock(&philo->data->mutex_arr[philo->right_fork]) == 0 && \
+				philo->data->someone_died == false)
+		{	safe_print(philo, "has taken his LEFT fork");
+			safe_print(philo, "has taken his RIGHT fork");
 		}
 		else
+			pthread_mutex_unlock(&philo->data->mutex_arr[philo->left_fork]);
+	}
+	else
+	{
+		pthread_mutex_lock(&philo->data->mutex_arr[philo->right_fork]);			
+		if (philo->data->someone_died == true)
 		{
-			pthread_mutex_lock(&philo->data->mutex_arr[philo->right_fork]);			
-			if (philo->data->someone_died == true)
-			{
-				pthread_mutex_unlock(&philo->data->mutex_arr[philo->right_fork]);
-				return;
-			}	
-			if (pthread_mutex_lock(&philo->data->mutex_arr[philo->left_fork]) == 0)
-			{
-				safe_print(philo, "has taken his RIGHT fork");
-				safe_print(philo, "has taken his LEFT fork");
-			}
-			else
-				pthread_mutex_unlock(&philo->data->mutex_arr[philo->right_fork]);
+			pthread_mutex_unlock(&philo->data->mutex_arr[philo->right_fork]);
+			return ;
+		}	
+		if (pthread_mutex_lock(&philo->data->mutex_arr[philo->left_fork]) == 0 && \
+				philo->data->someone_died == false)
+		{
+			safe_print(philo, "has taken his RIGHT fork");
+			safe_print(philo, "has taken his LEFT fork");
 		}
+		else
+			pthread_mutex_unlock(&philo->data->mutex_arr[philo->right_fork]);
+	}
+
+// /* ODDS ARE RIGHT_HANDED, EVEN ARE LEFT_HANDED */
+	// if (philo->data->someone_died == true)
+	// 	return ;
+	// else if (philo->name % 2 == 0)
+	// {
+	// 	pthread_mutex_lock(&philo->data->mutex_arr[philo->left_fork]);
+	// 	if (philo->data->someone_died == true)
+	// 	{
+	// 		pthread_mutex_unlock(&philo->data->mutex_arr[philo->left_fork]);
+	// 		return ;
+	// 	}			
+	// 	if (pthread_mutex_lock(&philo->data->mutex_arr[philo->right_fork]) == 0 && \
+	// 			philo->data->someone_died == false)
+	// 	{	safe_print(philo, "has taken his LEFT fork");
+	// 		safe_print(philo, "has taken his RIGHT fork");
+	// 	}
+	// 	else
+	// 		pthread_mutex_unlock(&philo->data->mutex_arr[philo->left_fork]);
+	// }
+	// else
+	// {
+	// 	pthread_mutex_lock(&philo->data->mutex_arr[philo->right_fork]);			
+	// 	if (philo->data->someone_died == true)
+	// 	{
+	// 		pthread_mutex_unlock(&philo->data->mutex_arr[philo->right_fork]);
+	// 		return ;
+	// 	}	
+	// 	if (pthread_mutex_lock(&philo->data->mutex_arr[philo->left_fork]) == 0 && \
+	// 			philo->data->someone_died == false)
+	// 	{
+	// 		safe_print(philo, "has taken his RIGHT fork");
+	// 		safe_print(philo, "has taken his LEFT fork");
+	// 	}
+	// 	else
+	// 		pthread_mutex_unlock(&philo->data->mutex_arr[philo->right_fork]);
 	// }
 }
 
@@ -212,6 +249,11 @@ static void	ft_sleep_and_think(t_philo *philo)
 	{
 		safe_print(philo, "is sleeping");
 		ft_usleep(philo->data->time_to_sleep);
-		safe_print(philo, "is thinking");
+		if (philo->data->someone_died == false && philo->data->everyone_finished == false)
+		{
+			safe_print(philo, "is thinking");
+			if (philo->data->no_of_philos % 2 != 0)
+				ft_usleep((philo->data->time_to_eat * 2) - philo->data->time_to_sleep);
+		}
 	}
 }
