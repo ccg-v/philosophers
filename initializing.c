@@ -6,7 +6,7 @@
 /*   By: ccarrace <ccarrace@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 10:55:06 by ccarrace          #+#    #+#             */
-/*   Updated: 2023/09/03 21:21:53 by ccarrace         ###   ########.fr       */
+/*   Updated: 2023/09/08 22:33:06 by ccarrace         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ bool	data_initialized(t_data *data, char **argv)
 	}
 	else
 		data->meals_needed = -1;
-	data->someone_died = false;
-	data->everyone_finished = false;
+	data->somebody_died = false;
+	data->everybody_finished = false;
 	data->start_time = ft_current_time();
 	return (true);
 }

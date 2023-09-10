@@ -6,7 +6,7 @@
 /*   By: ccarrace <ccarrace@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 11:06:51 by ccarrace          #+#    #+#             */
-/*   Updated: 2023/09/06 13:47:31 by ccarrace         ###   ########.fr       */
+/*   Updated: 2023/09/08 22:33:06 by ccarrace         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ typedef struct s_data
 	unsigned long		time_to_eat;
 	unsigned long		time_to_sleep;
 	int					meals_needed;
-	bool				someone_died;
-	bool				everyone_finished;
+	bool				somebody_died;
+	bool				everybody_finished;
 	unsigned long		start_time;
 	t_philo				*philos_arr;
 	pthread_t			doctor;

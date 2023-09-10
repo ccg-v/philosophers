@@ -6,7 +6,7 @@
 /*   By: ccarrace <ccarrace@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 21:03:46 by ccarrace          #+#    #+#             */
-/*   Updated: 2023/09/08 00:18:09 by ccarrace         ###   ########.fr       */
+/*   Updated: 2023/09/10 21:14:50 by ccarrace         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ void	*health_checkup(void *arg)
 			break;
 		else if (somebody_died(data) == true)
 			break;
-		// usleep(1000);
-		ft_usleep(50);
 	}
 	return (NULL);
 }
@@ -41,12 +39,11 @@ static bool	somebody_died(t_data *data)
 	{
 		if (data->philos_arr[i].is_busy_eating == false && (ft_current_time() - data->philos_arr[i].time_last_meal) > data->time_to_die)
 		{
-			data->someone_died = true;
+			data->somebody_died = true;
 			safe_death_print(data, "died. End of simulation.", i);
 			return (true);
 		}
 		i = (i + 1) % (data->no_of_philos + 1);
-		ft_usleep(500);
 	}
 	return (false);
 }
@@ -75,13 +72,11 @@ static bool	everybody_finished(t_data *data)
 	}
 	if (philos_full == data->no_of_philos)
 	{
-		// usleep(data->time_to_die * 1000);
-		// ft_usleep(data->time_to_die);
+		ft_usleep(data->time_to_die);
 		pthread_mutex_lock(&data->printing_mutex);
-		printf("%lu \tAll philosophers completed %d meals. End of simulation.\n", elapsed_time(data), data->meals_needed);
-		// printf("\tAll philosophers completed %d meals. End of simulation.\n", data->meals_needed);
+		printf("\tAll philosophers completed %d meals. End of simulation.\n", data->meals_needed);
 		pthread_mutex_unlock(&data->printing_mutex);
-		data->everyone_finished = true;
+		data->everybody_finished = true;
 		return (true);
 	}
 	return (false);
