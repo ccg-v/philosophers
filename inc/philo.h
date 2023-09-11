@@ -6,7 +6,7 @@
 /*   By: ccarrace <ccarrace@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 11:06:51 by ccarrace          #+#    #+#             */
-/*   Updated: 2023/09/08 22:33:06 by ccarrace         ###   ########.fr       */
+/*   Updated: 2023/09/11 01:48:34 by ccarrace         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void			*health_checkup(void *arg);
 // printing
 void		safe_print(t_philo *philo, char *str);
 void		safe_death_print(t_data *data, char *str, int i);
+void		safe_double_print(t_philo *philo, char *str1, char *str2);
 
 // ft_utils
 unsigned long	ft_current_time(void);

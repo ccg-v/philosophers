@@ -6,7 +6,7 @@
 /*   By: ccarrace <ccarrace@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 11:10:29 by ccarrace          #+#    #+#             */
-/*   Updated: 2023/09/10 19:57:55 by ccarrace         ###   ########.fr       */
+/*   Updated: 2023/09/11 21:19:30 by ccarrace         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,25 +57,11 @@ unsigned long	elapsed_time(t_data *data)
 	return(ft_current_time() - data->start_time);
 }
 
-void	ft_usleep(unsigned long lapse)
-{
-	unsigned long	start;
-
-	start = ft_current_time();
-	while ((ft_current_time() - start) < lapse)
-		usleep(lapse);
-}
-
-// void ft_usleep(unsigned long lapse)
+// void	ft_usleep(unsigned long time)
 // {
-//     unsigned long seconds = lapse / 1000;
-//     unsigned long microseconds = (lapse % 1000) * 1000;
-
-//     sleep(seconds);
-
-//     if (microseconds > 0) {
-//         usleep(microseconds);
-//     }
+// 	time += ft_current_time();
+// 	while (ft_current_time() <= time)
+// 		usleep(200);
 // }
 
 // void	ft_usleep(unsigned long lapse)
@@ -84,8 +70,29 @@ void	ft_usleep(unsigned long lapse)
 
 // 	start = ft_current_time();
 // 	while ((ft_current_time() - start) < lapse)
-// 		usleep(lapse / 2);
+// 		usleep(lapse);
 // }
+
+// void ft_usleep(unsigned long lapse)
+// {
+//     // unsigned long seconds = lapse / 1000;
+//     unsigned long microseconds = lapse * 1000; //(lapse % 1000) * 1000;
+
+//     usleep(lapse);
+
+//     if (microseconds > 0) {
+//         usleep(microseconds);
+//     }
+// }
+
+void	ft_usleep(unsigned long lapse)
+{
+	unsigned long	start;
+
+	start = ft_current_time();
+	while ((ft_current_time() - start) < lapse)
+		usleep(lapse);
+}
 
 // int	ft_usleep(size_t milliseconds)
 // {

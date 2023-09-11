@@ -6,7 +6,7 @@
 /*   By: ccarrace <ccarrace@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 21:03:46 by ccarrace          #+#    #+#             */
-/*   Updated: 2023/09/10 21:14:50 by ccarrace         ###   ########.fr       */
+/*   Updated: 2023/09/11 19:32:02 by ccarrace         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@ static bool	somebody_died(t_data *data)
 	i = 0;
 	while (i < data->no_of_philos)
 	{
-		if (data->philos_arr[i].is_busy_eating == false && (ft_current_time() - data->philos_arr[i].time_last_meal) > data->time_to_die)
+		if (data->philos_arr[i].is_busy_eating == false && (ft_current_time() - data->philos_arr[i].time_last_meal) > data->time_to_die && data->everybody_finished == false)
 		{
 			data->somebody_died = true;
-			safe_death_print(data, "died. End of simulation.", i);
+			safe_death_print(data, "died. End of simulation. ::::::::::::::::::", i);
 			return (true);
 		}
 		i = (i + 1) % (data->no_of_philos + 1);
