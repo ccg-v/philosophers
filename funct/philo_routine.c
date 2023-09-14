@@ -6,7 +6,7 @@
 /*   By: ccarrace <ccarrace@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 20:56:04 by ccarrace          #+#    #+#             */
-/*   Updated: 2023/09/08 22:33:06 by ccarrace         ###   ########.fr       */
+/*   Updated: 2023/09/14 21:51:34 by ccarrace         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ void *philo_routine(void *arg)
 
     philo = (t_philo *)arg;
     i = 0;
-	// if ((philo->name % 2) == 0)
-	// 	ft_usleep(philo->data->time_to_eat);
+	if ((philo->name % 2) == 0)
+		ft_usleep(philo->data->time_to_eat);
 		// usleep(philo->data->time_to_eat * 1000);
     while (1)
     {
@@ -132,6 +132,7 @@ static void	take_forks(t_philo *philo)
 	// 	safe_print(philo, "has taken his LEFT fork");
 	// }
 
+/* Last is left_handed, release first fork if second is not available */
 	if (philo->data->somebody_died == false)
 	{
 		if (philo->name == philo->data->no_of_philos)
@@ -156,6 +157,11 @@ static void	take_forks(t_philo *philo)
 				pthread_mutex_unlock(&philo->data->mutex_arr[philo->right_fork]);
 		}
 	}
+
+	// pthread_mutex_unlock(&philo->data->mutex_arr[philo->left_fork]);
+	// safe_print(philo, "has taken his LEFT fork");
+	// pthread_mutex_unlock(&philo->data->mutex_arr[philo->right_fork]);
+	// safe_print(philo, "has taken his RIGHT fork");
 }
 
 static void	ft_eat(t_philo *philo)

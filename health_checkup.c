@@ -6,7 +6,7 @@
 /*   By: ccarrace <ccarrace@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 21:03:46 by ccarrace          #+#    #+#             */
-/*   Updated: 2023/09/11 19:32:02 by ccarrace         ###   ########.fr       */
+/*   Updated: 2023/09/15 00:44:18 by ccarrace         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,55 +20,29 @@ void	*health_checkup(void *arg)
 	t_data	*data;
 
 	data = (t_data *)arg;
-	while (1)
+	while (everybody_finished(data) == false)
 	{
-		if (data->meals_needed != -1 && everybody_finished(data) == true)
-			break;
-		else if (somebody_died(data) == true)
-			break;
+		if (somebody_died(data) == true)
+			return (NULL);
+		ft_usleep(100);
 	}
 	return (NULL);
 }
 
-static bool	somebody_died(t_data *data)
-{
-	int	i;
-
-	i = 0;
-	while (i < data->no_of_philos)
-	{
-		if (data->philos_arr[i].is_busy_eating == false && (ft_current_time() - data->philos_arr[i].time_last_meal) > data->time_to_die && data->everybody_finished == false)
-		{
-			data->somebody_died = true;
-			safe_death_print(data, "died. End of simulation. ::::::::::::::::::", i);
-			return (true);
-		}
-		i = (i + 1) % (data->no_of_philos + 1);
-	}
-	return (false);
-}
-
-/*
-	i = (i + 1) % (data->no_of_philos + 1);
-	When 'i' reaches its maximum value ('no_of_philos') it is reset to '0'
-*/
 static bool	everybody_finished(t_data *data)
 {
 	int	i;
 	int	philos_full = 0;
 
 	i = 0;
+	if (data->meals_needed == -1)
+		return (false);
 	while (i < data->no_of_philos)
 	{
-		// if (i == data->no_of_philos)
-		// {
-		// 	i = 0;
-		// 	philos_full = 0;
-		// }
 		if (data->philos_arr[i].finished_all_meals == true)
 			philos_full++;
-		// i++;
-		i = (i + 1) % (data->no_of_philos + 1);
+		i++;
+		// i = (i + 1) % (data->no_of_philos + 1);
 	}
 	if (philos_full == data->no_of_philos)
 	{
@@ -81,3 +55,23 @@ static bool	everybody_finished(t_data *data)
 	}
 	return (false);
 }
+static bool	somebody_died(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < data->no_of_philos)
+	{
+		if ((ft_current_time() - data->philos_arr[i].time_last_meal) > data->time_to_die \
+			&& data->philos_arr[i].is_busy_eating == false \
+			&& data->everybody_finished == false)
+		{
+			data->somebody_died = true;
+			safe_death_print(data, "died. End of simulation.", i);
+			return (true);
+		}
+		i = (i + 1) % (data->no_of_philos + 1);
+	}
+	return (false);
+}
+

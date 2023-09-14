@@ -6,7 +6,7 @@
 /*   By: ccarrace <ccarrace@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 20:56:04 by ccarrace          #+#    #+#             */
-/*   Updated: 2023/09/11 22:25:05 by ccarrace         ###   ########.fr       */
+/*   Updated: 2023/09/15 00:47:29 by ccarrace         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,25 @@ static void	*just_one_philo(t_philo *philo)
 
 static void	take_forks(t_philo *philo)
 {
-// /* ONE LEFT-HANDED SOLUTION */
+/* ODDS LEFT-HANDED, EVEN RIGHT-HANDED */
+	// if (philo->data->somebody_died == true || philo->data->everybody_finished == true)
+	// 	return ;
+	// else if (philo->name % 2 != 0)
+	// {
+	// 	pthread_mutex_lock(&philo->data->mutex_arr[philo->left_fork]);
+	// 	safe_print(philo, "has taken his LEFT fork");	
+	// 	pthread_mutex_lock(&philo->data->mutex_arr[philo->right_fork]);
+	// 	safe_print(philo, "has taken his RIGHT fork");
+	// }
+	// else
+	// {
+	// 	pthread_mutex_lock(&philo->data->mutex_arr[philo->right_fork]);
+	// 	safe_print(philo, "has taken his RIGHT fork");
+	// 	pthread_mutex_lock(&philo->data->mutex_arr[philo->left_fork]);
+	// 	safe_print(philo, "has taken his LEFT fork");			
+	// }
+
+/* LAST PHILO LEFT_HANDED, RELEASE FIRST FORK IF SECOND IS NOT AVAILABLE */
 	if (philo->data->somebody_died == true)
 		return ;
 	else if (philo->name == philo->data->no_of_philos)
@@ -111,9 +129,10 @@ static void	ft_eat(t_philo *philo)
 		philo->time_last_meal = ft_current_time();	
 		safe_print(philo, "is eating");
 		ft_usleep(philo->data->time_to_eat);
-		pthread_mutex_unlock(&philo->data->mutex_arr[philo->left_fork]);
-		pthread_mutex_unlock(&philo->data->mutex_arr[philo->right_fork]);	
-
+		if (pthread_mutex_lock(&philo->data->mutex_arr[philo->left_fork]) != 0)
+			pthread_mutex_unlock(&philo->data->mutex_arr[philo->left_fork]);
+		if (pthread_mutex_lock(&philo->data->mutex_arr[philo->right_fork]) != 0)
+			pthread_mutex_unlock(&philo->data->mutex_arr[philo->right_fork]);	
 		philo->is_busy_eating = false;
 		philo->meals_completed++;
 		if (philo->meals_completed == philo->data->meals_needed)
@@ -123,7 +142,7 @@ static void	ft_eat(t_philo *philo)
 
 static void	ft_sleep_and_think(t_philo *philo)
 {
-	if (philo->data->somebody_died == true)
+	if (philo->data->somebody_died == true || philo->data->everybody_finished == true)
 		return ;
 	else
 	{
