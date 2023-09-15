@@ -6,7 +6,7 @@
 /*   By: ccarrace <ccarrace@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 20:56:04 by ccarrace          #+#    #+#             */
-/*   Updated: 2023/09/15 00:47:29 by ccarrace         ###   ########.fr       */
+/*   Updated: 2023/09/15 18:38:54 by ccarrace         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,9 +129,9 @@ static void	ft_eat(t_philo *philo)
 		philo->time_last_meal = ft_current_time();	
 		safe_print(philo, "is eating");
 		ft_usleep(philo->data->time_to_eat);
-		if (pthread_mutex_lock(&philo->data->mutex_arr[philo->left_fork]) != 0)
+		// if (pthread_mutex_lock(&philo->data->mutex_arr[philo->left_fork]) != 0)
 			pthread_mutex_unlock(&philo->data->mutex_arr[philo->left_fork]);
-		if (pthread_mutex_lock(&philo->data->mutex_arr[philo->right_fork]) != 0)
+		// if (pthread_mutex_lock(&philo->data->mutex_arr[philo->right_fork]) != 0)
 			pthread_mutex_unlock(&philo->data->mutex_arr[philo->right_fork]);	
 		philo->is_busy_eating = false;
 		philo->meals_completed++;
