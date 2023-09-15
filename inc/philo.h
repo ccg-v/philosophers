@@ -6,7 +6,7 @@
 /*   By: ccarrace <ccarrace@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 11:06:51 by ccarrace          #+#    #+#             */
-/*   Updated: 2023/09/11 01:48:34 by ccarrace         ###   ########.fr       */
+/*   Updated: 2023/09/15 23:43:20 by ccarrace         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,13 @@ typedef struct s_data
 	int					meals_needed;
 	bool				somebody_died;
 	bool				everybody_finished;
+	bool				simulation_is_over;
 	unsigned long		start_time;
 	t_philo				*philos_arr;
 	pthread_t			doctor;
 	pthread_mutex_t		*mutex_arr;
 	pthread_mutex_t		printing_mutex;
-	pthread_mutex_t		shared_mutex;
+	pthread_mutex_t		simulation_mutex;
 }	t_data;
 
 // initializing

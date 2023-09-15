@@ -6,7 +6,7 @@
 /*   By: ccarrace <ccarrace@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 10:13:30 by ccarrace          #+#    #+#             */
-/*   Updated: 2023/09/05 22:01:30 by ccarrace         ###   ########.fr       */
+/*   Updated: 2023/09/16 00:07:14 by ccarrace         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,15 @@ int	main(int argc, char **argv)
 	int		i;
 
 	if (argc < 5 || argc > 6)
+	{
 		printf("Wrong number of args\n");
+		return (0);
+	}
 	else if (args_are_valid(argv) == false)
-		printf("Args not valid (not number or negative)\n");
+	{
+		printf("Args not valid (must be positive integers!)\n");
+		return (0);
+	}
 	else
 	{
 		if (data_initialized(&data, argv) == false)

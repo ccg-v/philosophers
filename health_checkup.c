@@ -6,7 +6,7 @@
 /*   By: ccarrace <ccarrace@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 21:03:46 by ccarrace          #+#    #+#             */
-/*   Updated: 2023/09/15 18:48:25 by ccarrace         ###   ########.fr       */
+/*   Updated: 2023/09/16 00:03:31 by ccarrace         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,13 @@ void	*health_checkup(void *arg)
 	t_data	*data;
 
 	data = (t_data *)arg;
+	pthread_mutex_lock(&data->simulation_mutex);
+	if (data->simulation_is_over == true)
+	{
+		pthread_mutex_unlock(&data->simulation_mutex);
+		return (NULL);
+	}
+	pthread_mutex_unlock(&data->simulation_mutex);
 	while (everybody_finished(data) == false)
 	{
 		if (somebody_died(data) == true)
@@ -55,6 +62,7 @@ static bool	everybody_finished(t_data *data)
 	}
 	return (false);
 }
+
 static bool	somebody_died(t_data *data)
 {
 	int	i;
@@ -74,4 +82,3 @@ static bool	somebody_died(t_data *data)
 	}
 	return (false);
 }
-
