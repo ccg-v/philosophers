@@ -6,7 +6,7 @@
 /*   By: ccarrace <ccarrace@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 21:03:46 by ccarrace          #+#    #+#             */
-/*   Updated: 2023/09/15 00:44:18 by ccarrace         ###   ########.fr       */
+/*   Updated: 2023/09/15 18:48:25 by ccarrace         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	*health_checkup(void *arg)
 	{
 		if (somebody_died(data) == true)
 			return (NULL);
-		ft_usleep(100);
+		ft_usleep(10);
 	}
 	return (NULL);
 }
