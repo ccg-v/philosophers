@@ -6,7 +6,7 @@
 /*   By: ccarrace <ccarrace@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 11:06:51 by ccarrace          #+#    #+#             */
-/*   Updated: 2023/09/15 23:43:20 by ccarrace         ###   ########.fr       */
+/*   Updated: 2023/09/17 14:01:17 by ccarrace         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct s_philo
 	t_data				*data;
 	int					name;
 	int					meals_completed;
+	int					sleep_count;
 	bool				is_busy_eating;
 	bool				finished_all_meals;
 	unsigned long		time_last_meal;
@@ -56,6 +57,8 @@ typedef struct s_data
 	pthread_mutex_t		*mutex_arr;
 	pthread_mutex_t		printing_mutex;
 	pthread_mutex_t		simulation_mutex;
+	pthread_mutex_t		meals_check_mutex;
+	pthread_mutex_t		death_mutex;
 }	t_data;
 
 // initializing
