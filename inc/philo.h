@@ -6,7 +6,7 @@
 /*   By: ccarrace <ccarrace@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 11:06:51 by ccarrace          #+#    #+#             */
-/*   Updated: 2023/09/17 14:01:17 by ccarrace         ###   ########.fr       */
+/*   Updated: 2023/09/19 01:17:06 by ccarrace         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct s_data	t_data;
 typedef struct s_philo
 {
 	t_data				*data;
+	// pthread_t			thread_id;
 	int					name;
 	int					meals_completed;
 	int					sleep_count;
@@ -50,24 +51,19 @@ typedef struct s_data
 	int					meals_needed;
 	bool				somebody_died;
 	bool				everybody_finished;
-	bool				simulation_is_over;
+	// bool				simulation_is_over;
 	unsigned long		start_time;
 	t_philo				*philos_arr;
 	pthread_t			doctor;
 	pthread_mutex_t		*mutex_arr;
 	pthread_mutex_t		printing_mutex;
-	pthread_mutex_t		simulation_mutex;
-	pthread_mutex_t		meals_check_mutex;
-	pthread_mutex_t		death_mutex;
 }	t_data;
 
 // initializing
-bool			data_initialized(t_data *data, char **argv);
-bool			philos_initialized(t_data *data);
-bool			mutexes_initialized(t_data *data);
+int				initialize_all(t_data *data, char **argv);
 
 //	starting
-int				create_philos(t_philo *philo, t_data *data);
+int 			start_simulation(t_data *data);
 
 // philo_routine
 void 			*philo_routine(void *arg);
@@ -76,15 +72,15 @@ void 			*philo_routine(void *arg);
 void			*health_checkup(void *arg);
 
 // printing
-void		safe_print(t_philo *philo, char *str);
-void		safe_death_print(t_data *data, char *str, int i);
-void		safe_double_print(t_philo *philo, char *str1, char *str2);
+void			safe_print(t_philo *philo, char *str);
+void			safe_double_print(t_philo *philo, char *str1, char *str2);
+void			safe_death_print(t_data *data, char *str, int i);
 
 // ft_utils
 unsigned long	ft_current_time(void);
 unsigned long	elapsed_time(t_data *data);
+void			ft_usleep(unsigned long lapse);
 int				ft_isdigit(int c);
 int				ft_atoi(const char *str);
-void			ft_usleep(unsigned long lapse);
 
 #endif

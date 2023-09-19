@@ -6,13 +6,28 @@
 /*   By: ccarrace <ccarrace@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 10:55:06 by ccarrace          #+#    #+#             */
-/*   Updated: 2023/09/08 22:33:06 by ccarrace         ###   ########.fr       */
+/*   Updated: 2023/09/19 19:25:37 by ccarrace         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-bool	data_initialized(t_data *data, char **argv)
+static int	data_initialized(t_data *data, char **argv);
+static int	philos_initialized(t_data *data);
+static int	mutexes_initialized(t_data *data);
+
+int	initialize_all(t_data *data, char **argv)
+{
+	if (!data_initialized(data, argv))
+		return (0);
+	if (!philos_initialized(data))
+		return (0);
+	if (!mutexes_initialized(data))
+		return (0);
+	return (1);
+}
+
+static int	data_initialized(t_data *data, char **argv)
 {
 	data->no_of_philos = ft_atoi(argv[1]);
 	data->time_to_die = ft_atoi(argv[2]);
@@ -20,77 +35,59 @@ bool	data_initialized(t_data *data, char **argv)
 	data->time_to_sleep = ft_atoi(argv[4]);
 	if (data->no_of_philos <= 0 || data->time_to_die <= 0 || data->time_to_eat <= 0\
 		|| data->time_to_sleep <= 0)
-		return (false);
+		return (0);
 	if (argv[5])
 	{
 		data->meals_needed = ft_atoi(argv[5]);
 		if (data->meals_needed <= 0)
-			return (false);
+			return (0);
 	}
 	else
 		data->meals_needed = -1;
 	data->somebody_died = false;
 	data->everybody_finished = false;
 	data->start_time = ft_current_time();
-	return (true);
+	return (1);
 }
 
-/*
-	Smarter way of assigning forks to philos:
-	i = 0;
-	while (i < args->no_of_philos)
-	{
-		data->philos_arr[i].right_fork = i;
-		data->philos_arr[i].left_fork = (i + 1) % args->no_of_philos;
-		i++;
-	}
-	Remember a philosopher's 'left_fork' and 'right_fork' are the indexes we 
-	are going to use to move within the array of mutexes and find which mutex
-	corresponds to that philosopher's fork. Neighboring philosophers share
-	the same fork, hence they share the same mutex.
-*/
-bool	philos_initialized(t_data *data)
+static int	philos_initialized(t_data *data)
 {
 	int	i;
 
 	i = 0;
 	data->philos_arr = malloc(sizeof(t_philo) * data->no_of_philos);
 	if (!data->philos_arr)
-		return (false);
+		return (0);
 	while(i < data->no_of_philos)
 	{
 		data->philos_arr[i].data = data;
 		data->philos_arr[i].name = i + 1;
+// data->philos_arr[i].thread_id = 0;
 		data->philos_arr[i].meals_completed = 0;
+		data->philos_arr[i].sleep_count = 0;
 		data->philos_arr[i].is_busy_eating = false;
 		data->philos_arr[i].finished_all_meals = false;
 		data->philos_arr[i].time_last_meal = ft_current_time();
-// 		if (i == 0)
-// 			data->philos_arr[i].right_fork = args->no_of_philos;
-// 		else
-// 			data->philos_arr[i].right_fork = i;
-// 		data->philos_arr[i].left_fork = i + 1;
 		data->philos_arr[i].right_fork = i;
 		data->philos_arr[i].left_fork = (i + 1) % data->no_of_philos;
 		i++;
 	}
-	return (true);
+	return (1);
 }
 
-/* AM */
-bool	mutexes_initialized(t_data *data)
+static int	mutexes_initialized(t_data *data)
 {
 	int	i;
 
 	i = 0;
 	data->mutex_arr = malloc(sizeof(pthread_mutex_t) * data->no_of_philos);
 	if(!data->mutex_arr)
-		return (false);
+		return (0);
 	while (i < data->no_of_philos)
 	{
 		pthread_mutex_init(&data->mutex_arr[i], NULL);
 		i++;
 	}
 	pthread_mutex_init(&data->printing_mutex, NULL);
-	return (true);
+	return (1);
 }
