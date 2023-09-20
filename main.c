@@ -6,13 +6,13 @@
 /*   By: ccarrace <ccarrace@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 10:13:30 by ccarrace          #+#    #+#             */
-/*   Updated: 2023/09/19 01:12:09 by ccarrace         ###   ########.fr       */
+/*   Updated: 2023/09/19 23:45:14 by ccarrace         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-bool	args_are_valid(char **argv)
+static bool	args_are_valid(char **argv)
 {
 	int	i;
 	int	j;
@@ -24,16 +24,16 @@ bool	args_are_valid(char **argv)
 		while (argv[i][j])
 		{
 			if (!ft_isdigit(argv[i][j]))
-				return(false);
+				return (false);
 			if ((ft_atoi(argv[i]) <= 0))
-				return(false);
+				return (false);
 			j++;
 		}
 	}
 	return (true);
 }
 
-void	clear_table(t_data *data)
+static void	clear_table(t_data *data)
 {
 	int	i;
 
@@ -49,7 +49,7 @@ void	clear_table(t_data *data)
 }
 
 int	main(int argc, char **argv)
-{	
+{
 	t_data	data;
 	t_philo	philo;
 
@@ -67,8 +67,6 @@ int	main(int argc, char **argv)
 		return (0);
 	if (!start_simulation(&data))
 		return (0);
-	// if (!start_doctor(&data))
-	// 	return (0);
 	clear_table(&data);
 	return (1);
 }

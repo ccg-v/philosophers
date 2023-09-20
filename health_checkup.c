@@ -6,7 +6,7 @@
 /*   By: ccarrace <ccarrace@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 21:03:46 by ccarrace          #+#    #+#             */
-/*   Updated: 2023/09/19 01:27:42 by ccarrace         ###   ########.fr       */
+/*   Updated: 2023/09/20 19:04:59 by ccarrace         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static bool	everybody_finished(t_data *data)
 	}
 	if (philos_full == data->no_of_philos)
 	{
-		ft_usleep(1);
+		ft_usleep(100);
 		data->everybody_finished = true;
 		pthread_mutex_lock(&data->printing_mutex);
 		printf("\tAll philosophers completed %d meals. End of simulation.\n", data->meals_needed);

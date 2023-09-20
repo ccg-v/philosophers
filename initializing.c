@@ -6,7 +6,7 @@
 /*   By: ccarrace <ccarrace@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 10:55:06 by ccarrace          #+#    #+#             */
-/*   Updated: 2023/09/19 19:25:37 by ccarrace         ###   ########.fr       */
+/*   Updated: 2023/09/19 23:52:29 by ccarrace         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ static int	data_initialized(t_data *data, char **argv)
 	data->time_to_die = ft_atoi(argv[2]);
 	data->time_to_eat = ft_atoi(argv[3]);
 	data->time_to_sleep = ft_atoi(argv[4]);
-	if (data->no_of_philos <= 0 || data->time_to_die <= 0 || data->time_to_eat <= 0\
-		|| data->time_to_sleep <= 0)
+	if (data->no_of_philos <= 0 || data->time_to_die <= 0 \
+		|| data->time_to_eat <= 0 || data->time_to_sleep <= 0)
 		return (0);
 	if (argv[5])
 	{
@@ -58,11 +58,10 @@ static int	philos_initialized(t_data *data)
 	data->philos_arr = malloc(sizeof(t_philo) * data->no_of_philos);
 	if (!data->philos_arr)
 		return (0);
-	while(i < data->no_of_philos)
+	while (i < data->no_of_philos)
 	{
 		data->philos_arr[i].data = data;
 		data->philos_arr[i].name = i + 1;
-// data->philos_arr[i].thread_id = 0;
 		data->philos_arr[i].meals_completed = 0;
 		data->philos_arr[i].sleep_count = 0;
 		data->philos_arr[i].is_busy_eating = false;
@@ -81,7 +80,7 @@ static int	mutexes_initialized(t_data *data)
 
 	i = 0;
 	data->mutex_arr = malloc(sizeof(pthread_mutex_t) * data->no_of_philos);
-	if(!data->mutex_arr)
+	if (!data->mutex_arr)
 		return (0);
 	while (i < data->no_of_philos)
 	{

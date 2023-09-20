@@ -6,7 +6,7 @@
 #    By: ccarrace <ccarrace@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/08 13:22:20 by ccarrace          #+#    #+#              #
-#    Updated: 2023/09/19 19:27:54 by ccarrace         ###   ########.fr        #
+#    Updated: 2023/09/20 18:55:35 by ccarrace         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ SRC_FILES	=		main.c \
 					initializing.c \
 					starting.c \
 					philo_routine.c \
+					take_forks.c \
 					health_checkup.c \
 					printing.c \
 					ft_utils.c

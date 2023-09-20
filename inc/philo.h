@@ -6,7 +6,7 @@
 /*   By: ccarrace <ccarrace@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 11:06:51 by ccarrace          #+#    #+#             */
-/*   Updated: 2023/09/19 01:17:06 by ccarrace         ###   ########.fr       */
+/*   Updated: 2023/09/20 18:55:18 by ccarrace         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,9 @@ int 			start_simulation(t_data *data);
 
 // philo_routine
 void 			*philo_routine(void *arg);
+
+// take_forks
+void			take_forks(t_philo *philo);
 
 // health_checkup
 void			*health_checkup(void *arg);
