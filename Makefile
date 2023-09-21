@@ -6,15 +6,14 @@
 #    By: ccarrace <ccarrace@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/08 13:22:20 by ccarrace          #+#    #+#              #
-#    Updated: 2023/09/20 18:55:35 by ccarrace         ###   ########.fr        #
+#    Updated: 2023/09/20 22:15:15 by ccarrace         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-
-# gcc -Wall -Wextra -Werror -g -fsanitize=address -I inc/ main.c ft_utils.c -o philo
 
 # --- Variables ----------------------------------------------------------------
 CC			=		gcc
 NAME		=		philo
+HEADER		= 		inc/philo.h
 
 # --- Compiler flags -----------------------------------------------------------
 
@@ -48,7 +47,7 @@ DEP_FILES = $(SRC_FILES:.c=.d)
 
 all:		$(NAME)
 
-$(NAME): 	$(OBJ_FILES)
+$(NAME): 	$(OBJ_FILES) $(HEADER)
 	$(CC) $(FLAGS) $(INCLUDES) $(OBJ_FILES) -o $@
 
 %.o: %.c Makefile

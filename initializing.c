@@ -6,7 +6,7 @@
 /*   By: ccarrace <ccarrace@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 10:55:06 by ccarrace          #+#    #+#             */
-/*   Updated: 2023/09/19 23:52:29 by ccarrace         ###   ########.fr       */
+/*   Updated: 2023/09/20 21:39:29 by ccarrace         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ static int	philos_initialized(t_data *data)
 		data->philos_arr[i].data = data;
 		data->philos_arr[i].name = i + 1;
 		data->philos_arr[i].meals_completed = 0;
-		data->philos_arr[i].sleep_count = 0;
 		data->philos_arr[i].is_busy_eating = false;
 		data->philos_arr[i].finished_all_meals = false;
 		data->philos_arr[i].time_last_meal = ft_current_time();

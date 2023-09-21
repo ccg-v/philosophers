@@ -6,7 +6,7 @@
 /*   By: ccarrace <ccarrace@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 11:06:51 by ccarrace          #+#    #+#             */
-/*   Updated: 2023/09/20 18:55:18 by ccarrace         ###   ########.fr       */
+/*   Updated: 2023/09/20 21:38:24 by ccarrace         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,18 @@
 
 # include <stdbool.h>
 # include <stdio.h>
-# include <unistd.h>	//	write
+# include <unistd.h>
 # include <stdlib.h>
 # include <pthread.h>
 # include <sys/time.h>
-
-// enum e_boolean
-// {
-// 	FALSE,
-// 	TRUE
-// };
 
 typedef struct s_data	t_data;
 
 typedef struct s_philo
 {
 	t_data				*data;
-	// pthread_t			thread_id;
 	int					name;
 	int					meals_completed;
-	int					sleep_count;
 	bool				is_busy_eating;
 	bool				finished_all_meals;
 	unsigned long		time_last_meal;
@@ -51,7 +43,6 @@ typedef struct s_data
 	int					meals_needed;
 	bool				somebody_died;
 	bool				everybody_finished;
-	// bool				simulation_is_over;
 	unsigned long		start_time;
 	t_philo				*philos_arr;
 	pthread_t			doctor;
@@ -63,10 +54,10 @@ typedef struct s_data
 int				initialize_all(t_data *data, char **argv);
 
 //	starting
-int 			start_simulation(t_data *data);
+int				start_simulation(t_data *data);
 
 // philo_routine
-void 			*philo_routine(void *arg);
+void			*philo_routine(void *arg);
 
 // take_forks
 void			take_forks(t_philo *philo);
