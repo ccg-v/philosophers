@@ -6,7 +6,7 @@
 /*   By: ccarrace <ccarrace@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 21:03:46 by ccarrace          #+#    #+#             */
-/*   Updated: 2023/09/20 21:25:12 by ccarrace         ###   ########.fr       */
+/*   Updated: 2023/09/25 20:22:10 by ccarrace         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,19 @@ void	*health_checkup(void *arg)
 	t_data	*data;
 
 	data = (t_data *)arg;
-	while (everybody_finished(data) == false)
+	while (1)
 	{
 		if (somebody_died(data) == true)
 			return (NULL);
+		if (everybody_finished(data) == true)
+			return (NULL);
 	}
-	return (NULL);
+	// while (everybody_finished(data) == false)
+	// {
+	// 	if (somebody_died(data) == true)
+	// 		return (NULL);
+	// }
+	// return (NULL);
 }
 
 static bool	everybody_finished(t_data *data)
@@ -41,7 +48,8 @@ static bool	everybody_finished(t_data *data)
 	{
 		if (data->philos_arr[i].finished_all_meals == true)
 			philos_full++;
-		i = (i + 1) % (data->no_of_philos + 1);
+		// i = (i + 1) % (data->no_of_philos + 1);
+		i++;
 	}
 	if (philos_full == data->no_of_philos)
 	{

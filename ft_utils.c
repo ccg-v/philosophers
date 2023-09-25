@@ -6,12 +6,38 @@
 /*   By: ccarrace <ccarrace@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 11:10:29 by ccarrace          #+#    #+#             */
-/*   Updated: 2023/09/20 21:22:05 by ccarrace         ###   ########.fr       */
+/*   Updated: 2023/09/25 20:06:32 by ccarrace         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+/*
+	ft_current_time
+
+	Returns the current time at the precise moment when the function is called.
+	'gettimeofday()' returns a 'struct timeval' structure that contains the 
+	current time in seconds ('time.tv_sec') and microseconds('time.tv_usec') 
+	since the Unix epoch starting point (January 1, 1970).
+
+	ft_current_time returns the time in milliseconds, hence we must convert the
+	two 'struct timeval' values to milliseconds. The returned value can be a 
+	'long long int' type if we want to ensure that the function can handle a 
+	wide range of time intervals (many years or even centuries). But if we don't
+	need to deal such extremely long intervals, returning 'long int' or  
+	'unsigned long' will be enough.
+
+	Returning 'unsigned long' type, rather than pretending to avoid negative 
+	values from 'gettimeofday()' -which is never going to happen-, is a choice to  
+	enhancesemantic clarity and consistency with good coding practices. Using an 
+	unsigned type helps convey your intentions more clearly and prevents issues  
+	related to negative values.
+
+	A 'size_t' type also works fine but since its usually meant for sizes and 
+	countsit might be slightly misleading. The size of 'size_t' can vary depending 
+	on the system architecture, and it might no be sufficient to represent large
+	intervals. 
+*/
 unsigned long	ft_current_time(void)
 {
 	struct timeval	time;

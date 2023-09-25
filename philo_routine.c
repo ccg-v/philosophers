@@ -6,7 +6,7 @@
 /*   By: ccarrace <ccarrace@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 20:56:04 by ccarrace          #+#    #+#             */
-/*   Updated: 2023/09/20 21:14:15 by ccarrace         ###   ########.fr       */
+/*   Updated: 2023/09/25 13:37:57 by ccarrace         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,13 @@ static void	ft_eat(t_philo *philo)
 		pthread_mutex_unlock(&philo->data->mutex_arr[philo->right_fork]);
 		philo->is_busy_eating = false;
 		if (philo->meals_completed == philo->data->meals_needed)
+		{
+			pthread_mutex_lock(&philo->data->printing_mutex);
+			printf("%lu \t%d HAS COMPLETED ALL MEALS\n", elapsed_time(philo->data), \
+				philo->name);
+			pthread_mutex_unlock(&philo->data->printing_mutex);
 			philo->finished_all_meals = true;
+		}
 	}
 	return ;
 }
